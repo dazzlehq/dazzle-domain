@@ -24,7 +24,7 @@ class ArticleClassification {
         articleType: ArticleType.from(raw['article_type']),
         location:
             raw['location'] != null ? LatLong.fromJson(raw['location']) : null,
-        isEnglish: raw['is_english'],
+        isEnglish: raw['is_english'] ?? true,
       );
 
   factory ArticleClassification.fromBase64(String data) =>
