@@ -1,7 +1,5 @@
 import 'dart:convert';
 
-import 'package:dazzle_domain/dazzle_domain.dart';
-
 class JournalistClassification {
   final CompanyTypeClassification companyType;
   final GeoRegionClassification geoRegion;
@@ -359,6 +357,8 @@ class GeoRegionClassification {
   List<GeoRegion> topChoices(double percentage) {
     final t = totalCount;
 
+    if (t == 0) return const [GeoRegion.undetermined];
+
     return [
       if (europe >= t * percentage) GeoRegion.europe,
       if (uk >= t * percentage) GeoRegion.uk,
@@ -698,6 +698,8 @@ class ArticleTypeClassification {
 
   List<ArticleType> topChoices(double percentage) {
     final t = totalCount;
+
+    if (t == 0) return const [ArticleType.undetermined];
 
     return [
       if (industryTrends >= t * percentage) ArticleType.industryTrends,

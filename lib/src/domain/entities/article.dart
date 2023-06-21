@@ -1,5 +1,4 @@
-import 'package:dazzle_domain/src/domain/entities/article_classification.dart';
-import 'package:dazzle_domain/src/domain/entities/journalist.dart';
+import 'package:dazzle_domain/dazzle_domain.dart';
 
 class Article {
   final String id;
@@ -19,6 +18,18 @@ class Article {
     required this.date,
     required this.classification,
   });
+
+  @override
+  bool operator ==(Object other) {
+    if (other is Article) {
+      return other.hashCode == hashCode;
+    }
+
+    return false;
+  }
+
+  @override
+  int get hashCode => id.hashCode;
 
   factory Article.fromJson(Map<String, dynamic> raw) {
     final classification = raw['classification'] as Map?;
@@ -72,13 +83,13 @@ class ClassifiedArticle extends Article {
     );
   }
 
-  Map<String, dynamic> toIngestionJson(Journalist journalist) => {
+  Map<String, dynamic> toIngestionJson(List<Journalist> journalists) => {
         'id': id,
         'title': title,
         'body': body,
         'url': url.toString(),
         'date': date,
-        'journalist_id': journalist.id,
+        'journalist_id': journalists.map((it) => it.id).toSet().join(','),
         'classification': requireClassification.toIngestionValue(),
       };
 }

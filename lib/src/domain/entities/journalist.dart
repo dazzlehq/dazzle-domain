@@ -27,6 +27,19 @@ class Journalist {
         articleLink =
             link.replace(pathSegments: [...link.pathSegments, 'articles']);
 
+  @override
+  bool operator ==(Object other) {
+    if (other is Journalist) {
+      return other.hashCode == hashCode;
+    }
+
+    return false;
+  }
+
+  @override
+  int get hashCode => id.hashCode;
+
+
   factory Journalist.fromJson(Map<String, dynamic> raw) => Journalist(
         id: raw['id'],
         name: raw['name'],

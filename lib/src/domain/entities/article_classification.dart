@@ -8,6 +8,7 @@ class ArticleClassification {
   final ArticleType articleType;
   final LatLong? location;
   final bool isEnglish;
+  final bool isEmpty;
 
   const ArticleClassification({
     required this.companyType,
@@ -15,7 +16,15 @@ class ArticleClassification {
     required this.articleType,
     required this.location,
     required this.isEnglish,
-  });
+  }) : isEmpty = false;
+
+  const ArticleClassification.empty()
+      : companyType = CompanyType.undetermined,
+        geoRegion = GeoRegion.undetermined,
+        articleType = ArticleType.undetermined,
+        location = null,
+        isEnglish = true,
+        isEmpty = true;
 
   factory ArticleClassification.fromJson(Map<String, dynamic> raw) =>
       ArticleClassification(
