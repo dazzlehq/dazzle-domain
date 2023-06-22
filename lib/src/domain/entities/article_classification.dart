@@ -9,6 +9,7 @@ class ArticleClassification {
   final LatLong? location;
   final bool isEnglish;
   final bool isEmpty;
+  final String? adjustedQuery;
 
   const ArticleClassification({
     required this.companyType,
@@ -16,6 +17,7 @@ class ArticleClassification {
     required this.articleType,
     required this.location,
     required this.isEnglish,
+    required this.adjustedQuery,
   }) : isEmpty = false;
 
   const ArticleClassification.empty()
@@ -24,7 +26,8 @@ class ArticleClassification {
         articleType = ArticleType.undetermined,
         location = null,
         isEnglish = true,
-        isEmpty = true;
+        isEmpty = true,
+        adjustedQuery = null;
 
   factory ArticleClassification.fromJson(Map<String, dynamic> raw) =>
       ArticleClassification(
@@ -34,6 +37,7 @@ class ArticleClassification {
         location:
             raw['location'] != null ? LatLong.fromJson(raw['location']) : null,
         isEnglish: raw['is_english'] ?? true,
+        adjustedQuery: raw['adjusted_query'],
       );
 
   factory ArticleClassification.fromBase64(String data) =>
