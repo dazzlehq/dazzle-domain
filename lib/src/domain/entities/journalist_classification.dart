@@ -201,11 +201,11 @@ class CompanyTypeClassification {
 
   factory CompanyTypeClassification.fromJson(Map<String, dynamic> raw) =>
       CompanyTypeClassification(
-        startup: raw[CompanyType.startup.objectName],
-        smb: raw[CompanyType.smb.objectName],
-        enterprise: raw[CompanyType.enterprise.objectName],
-        other: raw[CompanyType.other.objectName],
-        undetermined: raw[CompanyType.undetermined.objectName],
+        startup: raw[CompanyType.startup.objectName] ?? 0,
+        smb: raw[CompanyType.smb.objectName] ?? 0,
+        enterprise: raw[CompanyType.enterprise.objectName] ?? 0,
+        other: raw[CompanyType.other.objectName] ?? 0,
+        undetermined: raw[CompanyType.undetermined.objectName] ?? 0,
       );
 
   double diff(CompanyType type, double range) {
@@ -341,17 +341,17 @@ class GeoRegionClassification {
 
   factory GeoRegionClassification.fromJson(Map<String, dynamic> raw) =>
       GeoRegionClassification(
-        europe: raw[GeoRegion.europe.objectName],
-        uk: raw[GeoRegion.uk.objectName],
-        us: raw[GeoRegion.us.objectName],
-        canada: raw[GeoRegion.canada.objectName],
-        latinAmerica: raw[GeoRegion.latinAmerica.objectName],
-        asiaPacific: raw[GeoRegion.asiaPacific.objectName],
-        oceania: raw[GeoRegion.oceania.objectName],
-        mena: raw[GeoRegion.mena.objectName],
-        subSaharan: raw[GeoRegion.subSaharan.objectName],
-        other: raw[GeoRegion.other.objectName],
-        undetermined: raw[GeoRegion.undetermined.objectName],
+        europe: raw[GeoRegion.europe.objectName] ?? 0,
+        uk: raw[GeoRegion.uk.objectName] ?? 0,
+        us: raw[GeoRegion.us.objectName] ?? 0,
+        canada: raw[GeoRegion.canada.objectName] ?? 0,
+        latinAmerica: raw[GeoRegion.latinAmerica.objectName] ?? 0,
+        asiaPacific: raw[GeoRegion.asiaPacific.objectName] ?? 0,
+        oceania: raw[GeoRegion.oceania.objectName] ?? 0,
+        mena: raw[GeoRegion.mena.objectName] ?? 0,
+        subSaharan: raw[GeoRegion.subSaharan.objectName] ?? 0,
+        other: raw[GeoRegion.other.objectName] ?? 0,
+        undetermined: raw[GeoRegion.undetermined.objectName] ?? 0,
       );
 
   List<GeoRegion> topChoices(double percentage) {
@@ -674,26 +674,26 @@ class ArticleTypeClassification {
 
   factory ArticleTypeClassification.fromJson(Map<String, dynamic> raw) =>
       ArticleTypeClassification(
-        industryTrends: raw[ArticleType.industryTrends.objectName],
-        featureArticle: raw[ArticleType.featureArticle.objectName],
-        review: raw[ArticleType.review.objectName],
+        industryTrends: raw[ArticleType.industryTrends.objectName] ?? 0,
+        featureArticle: raw[ArticleType.featureArticle.objectName] ?? 0,
+        review: raw[ArticleType.review.objectName] ?? 0,
         productLaunchOrUpdate:
-            raw[ArticleType.productLaunchOrUpdate.objectName],
-        funding: raw[ArticleType.funding.objectName],
-        partnership: raw[ArticleType.partnership.objectName],
-        acquisition: raw[ArticleType.acquisition.objectName],
-        expansion: raw[ArticleType.expansion.objectName],
-        explainer: raw[ArticleType.explainer.objectName],
-        howTo: raw[ArticleType.howTo.objectName],
-        roundup: raw[ArticleType.roundup.objectName],
-        interview: raw[ArticleType.interview.objectName],
-        profile: raw[ArticleType.profile.objectName],
-        event: raw[ArticleType.event.objectName],
-        thoughtLeadership: raw[ArticleType.thoughtLeadership.objectName],
-        opinion: raw[ArticleType.opinion.objectName],
-        satire: raw[ArticleType.satire.objectName],
-        other: raw[ArticleType.other.objectName],
-        undetermined: raw[ArticleType.undetermined.objectName],
+            raw[ArticleType.productLaunchOrUpdate.objectName] ?? 0,
+        funding: raw[ArticleType.funding.objectName] ?? 0,
+        partnership: raw[ArticleType.partnership.objectName] ?? 0,
+        acquisition: raw[ArticleType.acquisition.objectName] ?? 0,
+        expansion: raw[ArticleType.expansion.objectName] ?? 0,
+        explainer: raw[ArticleType.explainer.objectName] ?? 0,
+        howTo: raw[ArticleType.howTo.objectName] ?? 0,
+        roundup: raw[ArticleType.roundup.objectName] ?? 0,
+        interview: raw[ArticleType.interview.objectName] ?? 0,
+        profile: raw[ArticleType.profile.objectName] ?? 0,
+        event: raw[ArticleType.event.objectName] ?? 0,
+        thoughtLeadership: raw[ArticleType.thoughtLeadership.objectName] ?? 0,
+        opinion: raw[ArticleType.opinion.objectName] ?? 0,
+        satire: raw[ArticleType.satire.objectName] ?? 0,
+        other: raw[ArticleType.other.objectName] ?? 0,
+        undetermined: raw[ArticleType.undetermined.objectName] ?? 0,
       );
 
   List<ArticleType> topChoices(double percentage) {
