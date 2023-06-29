@@ -3,6 +3,7 @@ import 'package:dazzle_domain/dazzle_domain.dart';
 class Article {
   final String id;
   final String title;
+  final String? enhancedTitle;
   final String body;
   final Uri url;
   final String date;
@@ -13,6 +14,7 @@ class Article {
   const Article({
     required this.id,
     required this.title,
+    required this.enhancedTitle,
     required this.body,
     required this.url,
     required this.date,
@@ -37,6 +39,7 @@ class Article {
     return Article(
       id: raw['id'],
       title: raw['title'],
+      enhancedTitle: raw['enhanced_title'],
       body: raw['body'],
       url: Uri.parse(raw['url'] as String),
       date: raw['date'],
@@ -51,11 +54,22 @@ class Article {
   Map<String, dynamic> toJson() => {
         'id': id,
         'title': title,
+        'enhanced_title': enhancedTitle,
         'body': body,
         'url': url.toString(),
         'date': date,
         'classification': classification,
       };
+
+  Article withEnhancedTitle(String enhancedTitle) => Article(
+        id: id,
+        title: title,
+        enhancedTitle: enhancedTitle,
+        body: body,
+        url: url,
+        date: date,
+        classification: classification,
+      );
 }
 
 class ClassifiedArticle extends Article {
@@ -64,6 +78,7 @@ class ClassifiedArticle extends Article {
   ClassifiedArticle({
     required super.id,
     required super.title,
+    required super.enhancedTitle,
     required super.body,
     required super.url,
     required super.date,
@@ -76,6 +91,7 @@ class ClassifiedArticle extends Article {
     return ClassifiedArticle(
       id: article.id,
       title: article.title,
+      enhancedTitle: article.enhancedTitle,
       body: article.body,
       url: article.url,
       date: article.date,
@@ -83,13 +99,14 @@ class ClassifiedArticle extends Article {
     );
   }
 
-  Map<String, dynamic> toIngestionJson(List<Journalist> journalists) => {
+  Map<String, dynamic> toIngestionJson(List<String> journalistIds) => {
         'id': id,
         'title': title,
+        'enhanced_title': enhancedTitle,
         'body': body,
         'url': url.toString(),
         'date': date,
-        'journalist_id': journalists.map((it) => it.id).toSet().join(','),
+        'journalist_id': journalistIds.toSet().join(','),
         'classification': requireClassification.toIngestionValue(),
       };
 }

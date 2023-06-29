@@ -13,9 +13,9 @@ class JournalistClassification {
 
   factory JournalistClassification.fromJson(Map<String, dynamic> raw) =>
       JournalistClassification(
-        companyType: CompanyTypeClassification.fromJson(raw['company_type']),
-        geoRegion: GeoRegionClassification.fromJson(raw['geographical_region']),
-        articleType: ArticleTypeClassification.fromJson(raw['article_type']),
+        companyType: CompanyTypeClassification.fromJson(raw['company_type'] ?? raw['companyTypes']),
+        geoRegion: GeoRegionClassification.fromJson(raw['geographical_region'] ?? raw['geoRegions']),
+        articleType: ArticleTypeClassification.fromJson(raw['article_type'] ?? raw['articleTypes']),
       );
 
   factory JournalistClassification.fromBase64(String data) =>

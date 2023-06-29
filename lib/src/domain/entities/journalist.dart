@@ -1,5 +1,4 @@
-import 'package:dazzle_domain/src/domain/entities/article.dart';
-import 'package:dazzle_domain/src/domain/entities/journalist_classification.dart';
+import 'package:dazzle_domain/dazzle_domain.dart';
 
 class Journalist {
   final String id;
@@ -10,7 +9,7 @@ class Journalist {
   final String? location;
   final List<String> links;
   final DateTime lastBioUpdate;
-  final String? tmpBio;
+  final Description? pendingDescription;
   final JournalistClassification? classification;
 
   Journalist({
@@ -22,7 +21,7 @@ class Journalist {
     required this.image,
     required this.lastBioUpdate,
     required this.classification,
-    required this.tmpBio,
+    required this.pendingDescription,
   })  : links = links.map((it) => it.toLowerCase()).toList(),
         articleLink =
             link.replace(pathSegments: [...link.pathSegments, 'articles']);
@@ -39,7 +38,6 @@ class Journalist {
   @override
   int get hashCode => id.hashCode;
 
-
   factory Journalist.fromJson(Map<String, dynamic> raw) => Journalist(
         id: raw['id'],
         name: raw['name'],
@@ -52,7 +50,7 @@ class Journalist {
         classification: raw['classification'] != null
             ? JournalistClassification.fromJson(raw['classification']!)
             : null,
-    tmpBio: null,
+        pendingDescription: null,
       );
 
   Map<String, dynamic> toJson() => {
@@ -90,7 +88,7 @@ class ScrapedJournalist extends Journalist {
     required super.image,
     required super.lastBioUpdate,
     required super.classification,
-    required super.tmpBio,
+    required super.pendingDescription,
     required this.articles,
   });
 
@@ -109,7 +107,7 @@ class ScrapedJournalist extends Journalist {
       articles: (raw['articles'] as List? ?? const [])
           .map((it) => Article.fromJson(it))
           .toList(growable: true),
-      tmpBio: null,
+      pendingDescription: null,
     );
   }
 
@@ -125,7 +123,7 @@ class ScrapedJournalist extends Journalist {
         lastBioUpdate: journalist.lastBioUpdate,
         classification: journalist.classification,
         articles: articles.toList(growable: true),
-        tmpBio: journalist.tmpBio,
+        pendingDescription: journalist.pendingDescription,
       );
 
   @override
@@ -133,10 +131,18 @@ class ScrapedJournalist extends Journalist {
         ...super.toJson(),
         'articles': articles,
       };
+
+  ScrapedJournalist withUpdatedArticles(List<Article> articles) =>
+      ScrapedJournalist.fromJournalist(this, articles: articles);
+
+  void swapArticles(List<Article> value) {
+    articles.clear();
+    articles.addAll(value);
+  }
 }
 
 class DescribedJournalist extends ScrapedJournalist {
-  final String description;
+  final Description description;
 
   DescribedJournalist({
     required super.id,
@@ -148,7 +154,7 @@ class DescribedJournalist extends ScrapedJournalist {
     required super.lastBioUpdate,
     required super.classification,
     required super.articles,
-    required super.tmpBio,
+    required super.pendingDescription,
     required this.description,
   });
 
@@ -165,15 +171,15 @@ class DescribedJournalist extends ScrapedJournalist {
       lastBioUpdate: journalist.lastBioUpdate,
       classification: journalist.classification,
       articles: journalist.articles.toList(growable: true),
-      description: raw['description'],
-      tmpBio: null,
+      description: Description.fromJson(raw['description'] ?? const {}),
+      pendingDescription: null,
     );
   }
 
   factory DescribedJournalist.fromJournalist(
     Journalist journalist, {
     required Iterable<Article> articles,
-    required String description,
+    required Description description,
   }) {
     final scrapedJournalist = ScrapedJournalist.fromJournalist(
       journalist,
@@ -191,7 +197,7 @@ class DescribedJournalist extends ScrapedJournalist {
       classification: scrapedJournalist.classification,
       articles: scrapedJournalist.articles.toList(growable: true),
       description: description,
-      tmpBio: journalist.tmpBio,
+      pendingDescription: journalist.pendingDescription,
     );
   }
 
@@ -210,7 +216,7 @@ class DescribedJournalist extends ScrapedJournalist {
       classification: classification,
       articles: journalist.articles.toList(growable: true),
       description: journalist.description,
-      tmpBio: journalist.tmpBio,
+      pendingDescription: journalist.pendingDescription,
     );
   }
 
@@ -227,13 +233,34 @@ class DescribedJournalist extends ScrapedJournalist {
         'image': image?.toString(),
         'location': location,
         'links': links,
-        'description': description,
+        'title': description.title,
+        'description_short': description.short,
+        'description_long': description.long,
         'last_bio_update': lastBioUpdate.millisecondsSinceEpoch,
         'classification': classification?.toIngestionValue(),
       };
+}
 
-  void swapArticles(List<Article> value) {
-    articles.clear();
-    articles.addAll(value);
-  }
+class Description {
+  final String title;
+  final String long;
+  final String short;
+
+  const Description({
+    required this.title,
+    required this.short,
+    required this.long,
+  });
+
+  factory Description.fromJson(Map<String, dynamic> raw) => Description(
+        title: raw['title'],
+        short: raw['short'],
+        long: raw['long'],
+      );
+
+  Map<String, dynamic> toJson() => {
+        'title': title,
+        'short': short,
+        'long': long,
+      };
 }
