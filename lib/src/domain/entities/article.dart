@@ -106,7 +106,13 @@ class ClassifiedArticle extends Article {
         'body': body,
         'url': url.toString(),
         'date': date,
-        'journalist_id': journalistIds.toSet().join(','),
-        'classification': requireClassification.toIngestionValue(),
+        'journalist_id': journalistIds.toSet().toList(growable: false),
+        'classification_company_type':
+            requireClassification.companyType.objectName,
+        'classification_geo_region': requireClassification.geoRegion.objectName,
+        'classification_article_type':
+            requireClassification.articleType.objectName,
+        'classification_lat': requireClassification.location?.lat ?? .0,
+        'classification_long': requireClassification.location?.long ?? .0,
       };
 }
