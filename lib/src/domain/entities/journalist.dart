@@ -2,8 +2,7 @@ import 'package:dazzle_domain/dazzle_domain.dart';
 
 class Journalist {
   final String id;
-  final String outletAuthority;
-  final String outletName;
+  final Outlet outlet;
   final String name;
   final Uri? image;
   final String? location;
@@ -14,8 +13,7 @@ class Journalist {
   Journalist({
     required this.id,
     required this.name,
-    required this.outletAuthority,
-    required this.outletName,
+    required this.outlet,
     required this.location,
     required this.image,
     required this.lastBioUpdate,
@@ -38,8 +36,7 @@ class Journalist {
   factory Journalist.fromJson(Map<String, dynamic> raw) => Journalist(
         id: raw['id'],
         name: raw['name'],
-        outletAuthority: raw['outlet_authority'],
-        outletName: raw['outlet_name'],
+        outlet: Outlet.fromJson(raw['outlet']),
         location: raw['location'],
         image: raw['image'] != null ? Uri.parse(raw['image'] as String) : null,
         lastBioUpdate:
@@ -53,8 +50,7 @@ class Journalist {
   Map<String, dynamic> toJson() => {
         'id': id,
         'name': name,
-        'outlet_authority': outletAuthority,
-        'outlet_name': outletName,
+        'outlet': outlet,
         'image': image?.toString(),
         'location': location,
         'last_bio_update': lastBioUpdate.millisecondsSinceEpoch,
@@ -68,8 +64,7 @@ class ScrapedJournalist extends Journalist {
   ScrapedJournalist({
     required super.id,
     required super.name,
-    required super.outletAuthority,
-    required super.outletName,
+    required super.outlet,
     required super.location,
     required super.image,
     required super.lastBioUpdate,
@@ -84,8 +79,7 @@ class ScrapedJournalist extends Journalist {
     return ScrapedJournalist(
       id: journalist.id,
       name: journalist.name,
-      outletAuthority: journalist.outletAuthority,
-      outletName: journalist.outletName,
+      outlet: journalist.outlet,
       location: journalist.location,
       image: journalist.image,
       lastBioUpdate: journalist.lastBioUpdate,
@@ -102,8 +96,7 @@ class ScrapedJournalist extends Journalist {
       ScrapedJournalist(
         id: journalist.id,
         name: journalist.name,
-        outletAuthority: journalist.outletAuthority,
-        outletName: journalist.outletName,
+        outlet: journalist.outlet,
         location: journalist.location,
         image: journalist.image,
         lastBioUpdate: journalist.lastBioUpdate,
@@ -133,8 +126,7 @@ class DescribedJournalist extends ScrapedJournalist {
   DescribedJournalist({
     required super.id,
     required super.name,
-    required super.outletAuthority,
-    required super.outletName,
+    required super.outlet,
     required super.location,
     required super.image,
     required super.lastBioUpdate,
@@ -150,8 +142,7 @@ class DescribedJournalist extends ScrapedJournalist {
     return DescribedJournalist(
       id: journalist.id,
       name: journalist.name,
-      outletAuthority: journalist.outletAuthority,
-      outletName: journalist.outletName,
+      outlet: journalist.outlet,
       location: journalist.location,
       image: journalist.image,
       lastBioUpdate: journalist.lastBioUpdate,
@@ -175,8 +166,7 @@ class DescribedJournalist extends ScrapedJournalist {
     return DescribedJournalist(
       id: scrapedJournalist.id,
       name: scrapedJournalist.name,
-      outletAuthority: scrapedJournalist.outletAuthority,
-      outletName: scrapedJournalist.outletName,
+      outlet: scrapedJournalist.outlet,
       location: scrapedJournalist.location,
       image: scrapedJournalist.image,
       lastBioUpdate: DateTime.now(),
@@ -194,8 +184,7 @@ class DescribedJournalist extends ScrapedJournalist {
     return DescribedJournalist(
       id: journalist.id,
       name: journalist.name,
-      outletAuthority: journalist.outletAuthority,
-      outletName: journalist.outletName,
+      outlet: journalist.outlet,
       location: journalist.location,
       image: journalist.image,
       lastBioUpdate: journalist.lastBioUpdate,
@@ -214,9 +203,10 @@ class DescribedJournalist extends ScrapedJournalist {
 
   Map<String, dynamic> toIngestionJson() => {
         'id': id,
+        'group_name': 'JOU',
         'name': name,
-        'outlet_authority': outletAuthority,
-        'outlet_name': outletName,
+        'outlet_authority': outlet.authority,
+        'outlet_name': outlet.name,
         'image': image?.toString(),
         'location': location,
         'title': description.title,

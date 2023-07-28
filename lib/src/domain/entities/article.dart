@@ -99,13 +99,15 @@ class ClassifiedArticle extends Article {
     );
   }
 
-  Map<String, dynamic> toIngestionJson(List<String> journalistIds) => {
+  Map<String, dynamic> toIngestionJson(String outletId, List<String> journalistIds) => {
         'id': id,
+        'group_name': 'ART',
         'title': title,
         'enhanced_title': enhancedTitle,
         'body': body,
         'url': url.toString(),
         'date': date,
+        'outlet_id': outletId,
         'journalist_id': journalistIds.toSet().toList(growable: false),
         'classification_company_type':
             requireClassification.companyType.objectName,
