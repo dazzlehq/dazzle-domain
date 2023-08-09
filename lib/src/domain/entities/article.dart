@@ -5,6 +5,7 @@ class Article {
   final String title;
   final String? enhancedTitle;
   final String body;
+  final String author;
   final Uri url;
   final String date;
   final ArticleClassification? classification;
@@ -16,6 +17,7 @@ class Article {
     required this.title,
     required this.enhancedTitle,
     required this.body,
+    required this.author,
     required this.url,
     required this.date,
     required this.classification,
@@ -39,6 +41,7 @@ class Article {
     return Article(
       id: raw['id'],
       title: raw['title'],
+      author: raw['author'],
       enhancedTitle: raw['enhanced_title'],
       body: raw['body'],
       url: Uri.parse(raw['url'] as String),
@@ -64,6 +67,7 @@ class Article {
   Article withEnhancedTitle(String enhancedTitle) => Article(
         id: id,
         title: title,
+        author: author,
         enhancedTitle: enhancedTitle,
         body: body,
         url: url,
@@ -78,6 +82,7 @@ class ClassifiedArticle extends Article {
   ClassifiedArticle({
     required super.id,
     required super.title,
+    required super.author,
     required super.enhancedTitle,
     required super.body,
     required super.url,
@@ -91,6 +96,7 @@ class ClassifiedArticle extends Article {
     return ClassifiedArticle(
       id: article.id,
       title: article.title,
+      author: article.author,
       enhancedTitle: article.enhancedTitle,
       body: article.body,
       url: article.url,
@@ -99,7 +105,9 @@ class ClassifiedArticle extends Article {
     );
   }
 
-  Map<String, dynamic> toIngestionJson(String outletId, List<String> journalistIds) => {
+  Map<String, dynamic> toIngestionJson(
+          String outletId, List<String> journalistIds) =>
+      {
         'id': id,
         'group_name': 'ART',
         'title': title,
@@ -109,12 +117,10 @@ class ClassifiedArticle extends Article {
         'date': date,
         'outlet_id': outletId,
         'journalist_id': journalistIds.toSet().toList(growable: false),
-        'classification_company_type':
-            requireClassification.companyType.objectName,
-        'classification_geo_region': requireClassification.geoRegion.objectName,
-        'classification_article_type':
-            requireClassification.articleType.objectName,
-        'classification_lat': requireClassification.location?.lat ?? .0,
-        'classification_long': requireClassification.location?.long ?? .0,
+        'classification_company_type': classification?.companyType.objectName,
+        'classification_geo_region': classification?.geoRegion.objectName,
+        'classification_article_type': classification?.articleType.objectName,
+        'classification_lat': classification?.location?.lat ?? .0,
+        'classification_long': classification?.location?.long ?? .0,
       };
 }
