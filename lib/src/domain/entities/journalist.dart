@@ -63,11 +63,11 @@ class Journalist {
       outlet: outlet,
       location: raw['muckrack_location'],
       lastBioUpdate: DateTime.fromMillisecondsSinceEpoch(
-          profile['last_bio_generation_date'] ?? 0),
+          /*profile['last_bio_generation_date'] ?? */ 0),
       classification: profile['classification'] != null
           ? JournalistClassification.fromJson(profile['classification']!)
           : null,
-      pendingDescription: profile['bio'],
+      pendingDescription: /*profile['bio']*/ null,
     );
   }
 
@@ -247,8 +247,9 @@ class DescribedJournalist extends ScrapedJournalist {
         'id': id,
         'group_name': 'JOU',
         'name': name,
+        'outlet_id': outlet.id,
         'outlet_authority': outlet.authority,
-        'outlet_name': outlet.name,
+        'outlet_name': outlet.name.isEmpty ? 'Freelance' : outlet.name,
         'location': location,
         'title': description.title,
         'article_types': description.articleTypes,

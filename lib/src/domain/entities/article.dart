@@ -5,7 +5,6 @@ class Article {
   final String title;
   final String? enhancedTitle;
   final String body;
-  final String author;
   final Uri url;
   final String date;
   final ArticleClassification? classification;
@@ -17,7 +16,6 @@ class Article {
     required this.title,
     required this.enhancedTitle,
     required this.body,
-    required this.author,
     required this.url,
     required this.date,
     required this.classification,
@@ -41,7 +39,6 @@ class Article {
     return Article(
       id: raw['id'],
       title: raw['title'],
-      author: raw['author'],
       enhancedTitle: raw['enhanced_title'],
       body: raw['body'],
       url: Uri.parse(raw['url'] as String),
@@ -67,7 +64,6 @@ class Article {
   Article withEnhancedTitle(String enhancedTitle) => Article(
         id: id,
         title: title,
-        author: author,
         enhancedTitle: enhancedTitle,
         body: body,
         url: url,
@@ -82,7 +78,6 @@ class ClassifiedArticle extends Article {
   ClassifiedArticle({
     required super.id,
     required super.title,
-    required super.author,
     required super.enhancedTitle,
     required super.body,
     required super.url,
@@ -96,7 +91,6 @@ class ClassifiedArticle extends Article {
     return ClassifiedArticle(
       id: article.id,
       title: article.title,
-      author: article.author,
       enhancedTitle: article.enhancedTitle,
       body: article.body,
       url: article.url,
