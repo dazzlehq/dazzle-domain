@@ -7,7 +7,6 @@ class ArticleClassification {
   final GeoRegion geoRegion;
   final ArticleType articleType;
   final LatLong? location;
-  final bool isEnglish;
   final bool isEmpty;
   final String? adjustedQuery;
 
@@ -16,7 +15,6 @@ class ArticleClassification {
     required this.geoRegion,
     required this.articleType,
     required this.location,
-    required this.isEnglish,
     required this.adjustedQuery,
   }) : isEmpty = false;
 
@@ -25,7 +23,6 @@ class ArticleClassification {
         geoRegion = GeoRegion.undetermined,
         articleType = ArticleType.undetermined,
         location = null,
-        isEnglish = true,
         isEmpty = true,
         adjustedQuery = null;
 
@@ -36,7 +33,6 @@ class ArticleClassification {
         articleType: ArticleType.from(raw['article_type']),
         location:
             raw['location'] != null ? LatLong.fromJson(raw['location']) : null,
-        isEnglish: raw['is_english'] ?? true,
         adjustedQuery: raw['adjusted_query'],
       );
 

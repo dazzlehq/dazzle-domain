@@ -99,20 +99,22 @@ class ClassifiedArticle extends Article {
     );
   }
 
-  Map<String, dynamic> toIngestionJson(List<String> journalistIds) => {
+  Map<String, dynamic> toIngestionJson(
+          String outletId, List<String> journalistIds) =>
+      {
         'id': id,
+        'group_name': 'ART',
         'title': title,
         'enhanced_title': enhancedTitle,
         'body': body,
         'url': url.toString(),
         'date': date,
+        'outlet_id': outletId,
         'journalist_id': journalistIds.toSet().toList(growable: false),
-        'classification_company_type':
-            requireClassification.companyType.objectName,
-        'classification_geo_region': requireClassification.geoRegion.objectName,
-        'classification_article_type':
-            requireClassification.articleType.objectName,
-        'classification_lat': requireClassification.location?.lat ?? .0,
-        'classification_long': requireClassification.location?.long ?? .0,
+        'classification_company_type': classification?.companyType.objectName,
+        'classification_geo_region': classification?.geoRegion.objectName,
+        'classification_article_type': classification?.articleType.objectName,
+        'classification_lat': classification?.location?.lat ?? .0,
+        'classification_long': classification?.location?.long ?? .0,
       };
 }
