@@ -40,7 +40,8 @@ enum LanguageCode {
   german(objectName: 'de'),
   spanish(objectName: 'es'),
   french(objectName: 'fr'),
-  dutch(objectName: 'nl');
+  dutch(objectName: 'nl'),
+  portuguese(objectName: 'pt');
 
   final String objectName;
 
@@ -60,6 +61,8 @@ enum LanguageCode {
         return french;
       case 'nl':
         return dutch;
+      case 'pt':
+        return portuguese;
       default:
         return english;
     }
