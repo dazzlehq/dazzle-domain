@@ -13,9 +13,12 @@ class JournalistClassification {
 
   factory JournalistClassification.fromJson(Map<String, dynamic> raw) =>
       JournalistClassification(
-        companyType: CompanyTypeClassification.fromJson(raw['company_type'] ?? raw['companyTypes']),
-        geoRegion: GeoRegionClassification.fromJson(raw['geographical_region'] ?? raw['geoRegions']),
-        articleType: ArticleTypeClassification.fromJson(raw['article_type'] ?? raw['articleTypes']),
+        companyType: CompanyTypeClassification.fromJson(
+            raw['company_type'] ?? raw['companyTypes']),
+        geoRegion: GeoRegionClassification.fromJson(
+            raw['geographical_region'] ?? raw['geoRegions']),
+        articleType: ArticleTypeClassification.fromJson(
+            raw['article_type'] ?? raw['articleTypes']),
       );
 
   factory JournalistClassification.fromBase64(String data) =>
@@ -30,6 +33,37 @@ class JournalistClassification {
 
   String toIngestionValue() => const Base64Codec()
       .encode(const JsonEncoder().convert(toJson()).codeUnits);
+}
+
+enum LanguageCode {
+  english(objectName: 'en'),
+  german(objectName: 'de'),
+  spanish(objectName: 'es'),
+  french(objectName: 'fr'),
+  dutch(objectName: 'nl');
+
+  final String objectName;
+
+  const LanguageCode({
+    required this.objectName,
+  });
+
+  factory LanguageCode.from(String raw) {
+    switch (raw) {
+      case 'en':
+        return english;
+      case 'de':
+        return german;
+      case 'es':
+        return spanish;
+      case 'fr':
+        return french;
+      case 'nl':
+        return dutch;
+      default:
+        return english;
+    }
+  }
 }
 
 enum CompanyType {
