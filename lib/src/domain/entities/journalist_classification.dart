@@ -72,6 +72,32 @@ enum LanguageCode {
   }
 }
 
+enum OutletTier {
+  first(objectName: 'first'),
+  second(objectName: 'second'),
+  third(objectName: 'third'),
+  fourth(objectName: 'fourth');
+
+  final String objectName;
+
+  const OutletTier({
+    required this.objectName,
+  });
+
+  factory OutletTier.from(String raw) {
+    switch (raw) {
+      case 'first':
+        return first;
+      case 'second':
+        return second;
+      case 'third':
+        return third;
+      case 'fourth':
+        return fourth;
+    }
+  }
+}
+
 enum CompanyType {
   startup(objectName: 'startup'),
   smb(objectName: 'smb'),
