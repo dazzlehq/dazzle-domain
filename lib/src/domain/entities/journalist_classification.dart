@@ -95,6 +95,8 @@ enum OutletTier {
       case 'fourth':
         return fourth;
     }
+
+    throw Exception('$raw is not a valid option for OutletTier!');
   }
 }
 
