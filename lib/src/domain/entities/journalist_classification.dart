@@ -73,10 +73,12 @@ enum LanguageCode {
 }
 
 enum OutletTier {
-  first(objectName: '>= 10M'),
-  second(objectName: '>= 1M'),
-  third(objectName: '>= 500K'),
-  fourth(objectName: '>= 100K');
+  first(objectName: 'first'),
+  second(objectName: 'second'),
+  third(objectName: 'third'),
+  fourth(objectName: 'fourth'),
+  fifth(objectName: 'fifth'),
+  sixth(objectName: 'sixth');
 
   final String objectName;
 
@@ -86,30 +88,21 @@ enum OutletTier {
 
   factory OutletTier.from(String raw) {
     switch (raw) {
-      case '>= 10M':
+      case 'first':
         return first;
-      case '>= 1M':
+      case 'second':
         return second;
-      case '>= 500K':
+      case 'third':
         return third;
-      case '>= 100K':
+      case 'fourth':
         return fourth;
+      case 'fifth':
+        return fifth;
+      case 'sixth':
+        return sixth;
     }
 
     throw Exception('$raw is not a valid option for OutletTier!');
-  }
-
-  int toValue() {
-    switch (this) {
-      case OutletTier.first:
-        return 10000000;
-      case OutletTier.second:
-        return 1000000;
-      case OutletTier.third:
-        return 500000;
-      case OutletTier.fourth:
-        return 100000;
-    }
   }
 }
 
