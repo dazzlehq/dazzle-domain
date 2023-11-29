@@ -6,6 +6,7 @@ class Outlet {
   final String metaScope;
   final String metaLang;
   final String metaCountry;
+  final String monthlyVisitors;
 
   const Outlet({
     required this.id,
@@ -15,6 +16,7 @@ class Outlet {
     required this.metaScope,
     required this.metaLang,
     required this.metaCountry,
+    required this.monthlyVisitors,
   });
 
   @override
@@ -37,6 +39,7 @@ class Outlet {
         metaScope: metaScope,
         metaLang: metaLang,
         metaCountry: metaCountry,
+        monthlyVisitors: monthlyVisitors,
       );
 
   factory Outlet.fromJson(Map<String, dynamic> raw) => Outlet(
@@ -47,6 +50,7 @@ class Outlet {
         metaScope: raw['meta_scope'],
         metaLang: raw['meta_lang'],
         metaCountry: raw['meta_country'],
+        monthlyVisitors: raw['similar_web_rank'],
       );
 
   Map<String, dynamic> toJson() => {
@@ -57,6 +61,7 @@ class Outlet {
         'meta_scope': metaScope,
         'meta_lang': metaLang,
         'meta_country': metaCountry,
+        'similar_web_rank': monthlyVisitors,
       };
 }
 
@@ -71,6 +76,7 @@ class DescribedOutlet extends Outlet {
     required super.metaScope,
     required super.metaLang,
     required super.metaCountry,
+    required super.monthlyVisitors,
     required this.description,
   });
 
@@ -85,6 +91,7 @@ class DescribedOutlet extends Outlet {
       metaScope: outlet.metaScope,
       metaLang: outlet.metaLang,
       metaCountry: outlet.metaCountry,
+      monthlyVisitors: outlet.monthlyVisitors,
       description: raw['description'],
     );
   }
@@ -99,5 +106,6 @@ class DescribedOutlet extends Outlet {
         'meta_lang': metaLang,
         'meta_country': metaCountry,
         'description': description,
+        'similar_web_rank': monthlyVisitors,
       };
 }
