@@ -47,10 +47,10 @@ class Outlet {
         name: raw['name'],
         homePage: raw['home_page'],
         authority: raw['authority'],
-        metaScope: raw['meta_scope'],
-        metaLang: raw['meta_lang'],
-        metaCountry: raw['meta_country'],
-        monthlyVisitors: raw['similar_web_rank'],
+        metaScope: raw['meta_scope'] ?? '',
+        metaLang: raw['meta_lang'] ?? '',
+        metaCountry: raw['meta_country'] ?? '',
+        monthlyVisitors: raw['similar_web_rank'] ?? -1,
       );
 
   Map<String, dynamic> toJson() => {
@@ -92,7 +92,7 @@ class DescribedOutlet extends Outlet {
       metaLang: outlet.metaLang,
       metaCountry: outlet.metaCountry,
       monthlyVisitors: outlet.monthlyVisitors,
-      description: raw['description'],
+      description: raw['description'] ?? 'No description yet!',
     );
   }
 

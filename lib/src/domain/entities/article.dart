@@ -114,7 +114,5 @@ class ClassifiedArticle extends Article {
         'classification_company_type': classification?.companyType.objectName,
         'classification_geo_region': classification?.geoRegion.objectName,
         'classification_article_type': classification?.articleType.objectName,
-        'classification_lat': classification?.location?.lat ?? .0,
-        'classification_long': classification?.location?.long ?? .0,
       };
 }

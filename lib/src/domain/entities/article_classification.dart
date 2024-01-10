@@ -6,7 +6,6 @@ class ArticleClassification {
   final CompanyType companyType;
   final GeoRegion geoRegion;
   final ArticleType articleType;
-  final LatLong? location;
   final bool isEmpty;
   final String? adjustedQuery;
 
@@ -14,7 +13,6 @@ class ArticleClassification {
     required this.companyType,
     required this.geoRegion,
     required this.articleType,
-    required this.location,
     required this.adjustedQuery,
   }) : isEmpty = false;
 
@@ -22,7 +20,6 @@ class ArticleClassification {
       : companyType = CompanyType.undetermined,
         geoRegion = GeoRegion.undetermined,
         articleType = ArticleType.undetermined,
-        location = null,
         isEmpty = true,
         adjustedQuery = null;
 
@@ -31,8 +28,6 @@ class ArticleClassification {
         companyType: CompanyType.from(raw['company_type']),
         geoRegion: GeoRegion.from(raw['geographical_region']),
         articleType: ArticleType.from(raw['article_type']),
-        location:
-            raw['location'] != null ? LatLong.fromJson(raw['location']) : null,
         adjustedQuery: raw['adjusted_query'],
       );
 
@@ -44,28 +39,8 @@ class ArticleClassification {
         'company_type': companyType.objectName,
         'geographical_region': geoRegion.objectName,
         'article_type': articleType.objectName,
-        'location': location,
       };
 
   String toIngestionValue() => const Base64Codec()
       .encode(const JsonEncoder().convert(toJson()).codeUnits);
-}
-
-class LatLong {
-  final double lat, long;
-
-  const LatLong({
-    required this.lat,
-    required this.long,
-  });
-
-  factory LatLong.fromJson(Map<String, dynamic> raw) => LatLong(
-        lat: raw['lat'],
-        long: raw['long'],
-      );
-
-  Map<String, dynamic> toJson() => {
-        'lat': lat,
-        'long': long,
-      };
 }
